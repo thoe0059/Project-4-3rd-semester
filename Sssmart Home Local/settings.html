@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Database</title>
+		<title>Sssmart Home - Settings</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="C:\Users\barca\Documents\GitHub\Project-4-3rd-semester\Sssmart Home Local\css\main.css" />
@@ -21,12 +21,60 @@
 			</nav>
 			
 
-			<section class="banner half">
+			<section class="banner full">
 				<article>
 					<img src="black.jpg" alt="" />
 					<div class="inner">
 						<header>
-							<h2><b>SETTINGS</b></h2>
+							<h2><b>SETTINGS</b></h2><br>
+							<button onclick="autoControlON()" type = "submit" id = "buttonON">Turn the auto control ON</button><button onclick="autoControlOFF()" type = "submit" id = "buttonOFF">Turn the auto control OFF</button>
+							<h4 id="autoToggle"></h4>
+							
+							<script>
+								function autoControlON() {	
+									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned ON";
+									document.getElementById("autoToggle").style.color = "green"
+									window.onload=function(){
+										document.getElementById("autoToggle").innerHTML = "The automatic control is now turned ON";
+										document.getElementById("autoToggle").style.color = "green"	
+									}
+								}	
+								
+
+								function autoControlOFF() {
+									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned OFF";
+									document.getElementById("autoToggle").style.color = "red"	
+								} 
+								
+
+							</script>
+							<h3><b>Change range manually</b></h3>
+							<h4 id = "changeRange"></h4>
+							<form id="settingsForm" method="GET">
+								Temperature(low, °C): <input type="text" name="templow" id="templow">
+								Temperature(high, °C): <input type="text" name="temphigh" id="temphigh">
+								Humidity(low, %): <input type="text" name="humlow" id="humlow">
+								Humidity(high, %): <input type="text" name="humhigh" id="humhigh">
+								<input type="button" value="Change" onclick="submitForm()">
+								</form>
+								<script>
+								function submitForm(){
+									if(typeof(localStorage) != "undefined"){
+										localStorage.templow = document.getElementById("templow").value;
+										localStorage.temphigh = document.getElementById("temphigh").value;
+										localStorage.humlow = document.getElementById("humlow").value;
+										localStorage.humhigh = document.getElementById("humhigh").value;
+										
+
+									}
+									document.getElementById('templow').value=''; 
+            						document.getElementById('temphigh').value=''; 
+            						document.getElementById('humlow').value='';
+									document.getElementById('humhigh').value=''; 
+									document.getElementById("settingsForm").submit();
+									alert("The changes were saved");
+								}
+								</script>
 						</header>
 					</div>
 				</article>
