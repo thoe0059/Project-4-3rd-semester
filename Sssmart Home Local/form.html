@@ -13,7 +13,7 @@
 		<title>Sssmart Home - Add Animal</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/shit.css') }}">
+		<link rel="stylesheet" href="C:\Users\barca\Documents\GitHub\Project-4-3rd-semester\Sssmart Home Local\css\main.css">
 	</head>
 	<body onload="init()">
 
@@ -28,25 +28,38 @@
 
 
 			<header id="header">
-				<div class="logo"><a href="{{ url_for('home') }}">Main Page</a></div>
-				<a href="{{ url_for('animals') }}">Choose Animal</a>
+				<div class="logo"><a href="index.html">Main Page</a></div>
+				<a href="animals.html">Choose Animal</a>
 			</header>
 
 		<!-- Banner -->
 			<section class="banner full">
 				<article>
-					<img src="{{ url_for('static', filename='black.jpg') }}" alt="" />
+					<img src="black.jpg" alt="" />
 					<div class="inner">
 						<header>
 							<h3><b>Add your animal</b></h3><br>
-							<form action="/customanimal" method="post">
-								Species: <input type="text" name="species"><br>
-							<!--	Humidity (lowest): <input type="text" name="humlow"><br>
-								Humidity (highest): <input type="text" name="humhigh"><br>
-								Temperature (lowest): <input type="text" name="templow"><br>
-								Temperature (highest): <input type="text" name="temphigh"><br> -->
-								<input type="submit" value="Submit">
-							</form>
+							<form id="form" method="GET" action="customanimal.html">
+								Species: <input type="text" name="species" id="species">
+								Temperature(low, °C): <input type="text" name="templow" id="templow">
+								Temperature(high, °C): <input type="text" name="temphigh" id="temphigh">
+								Humidity(low, %): <input type="text" name="humlow" id="humlow">
+								Humidity(high, %): <input type="text" name="humhigh" id="humhigh">
+								<input type="button" value="Submit" onclick="submitForm()">
+								</form>
+								<script>
+								function submitForm(){
+									if(typeof(localStorage) != "undefined"){
+										localStorage.species = document.getElementById("species").value;
+										localStorage.templow = document.getElementById("templow").value;
+										localStorage.temphigh = document.getElementById("temphigh").value;
+										localStorage.humlow = document.getElementById("humlow").value;
+										localStorage.humhigh = document.getElementById("humhigh").value;
+										
+									}
+									document.getElementById("form").submit();
+								}
+								</script>
 						</header>
 					</div>
 				</article>
@@ -72,11 +85,11 @@
 
 
 		<!-- Scripts -->
-			<script type="text/javascript" src="{{ url_for('static', filename='/js/jquery.min.js') }}"></script>
-			<script type="text/javascript" src="{{ url_for('static', filename='/js/jquery.scrollex.min.js') }}"></script>
-			<script type="text/javascript" src="{{ url_for('static', filename='/js/skel.min.js') }}"></script>
-			<script type="text/javascript" src="{{ url_for('static', filename='/js/util.js') }}"></script>
-			<script type="text/javascript" src="{{ url_for('static', filename='/js/main.js') }}"></script>
+		<script type="text/javascript" src="C:\Users\barca\Desktop\Sssmart Home Local\js\jquery.min.js"></script>
+		<script type="text/javascript" src="C:\Users\barca\Desktop\Sssmart Home Local\js\jquery.scrollex.min.js"></script>
+		<script type="text/javascript" src="C:\Users\barca\Desktop\Sssmart Home Local\js\skel.min.js"></script>
+		<script type="text/javascript" src="C:\Users\barca\Desktop\Sssmart Home Local\js\util.js"></script>
+		<script type="text/javascript" src="C:\Users\barca\Desktop\Sssmart Home Local\js\main.js"></script>
 			<!-- <script type="text/javascript">
              window.onload = function(){
                 var name = prompt("Please enter your animal's name");
