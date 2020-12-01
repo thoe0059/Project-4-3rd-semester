@@ -24,6 +24,20 @@
         }
     </script>
 
+		<script src="/mqtt.js"></script>
+<script>
+		var client = mqtt.connect();
+
+      client.subscribe("mqtt/demo");
+
+      client.on("message", function(topic, payload) {
+        alert([topic, payload].join(": "));
+        client.end();
+      });
+
+      client.publish("mqtt/demo", "hello world!");
+    </script>
+
 		<!-- Header -->
 
 
@@ -55,7 +69,7 @@
 										localStorage.temphigh = document.getElementById("temphigh").value;
 										localStorage.humlow = document.getElementById("humlow").value;
 										localStorage.humhigh = document.getElementById("humhigh").value;
-										
+
 									}
 									document.getElementById("form").submit();
 								}
@@ -64,23 +78,6 @@
 					</div>
 				</article>
 			</section>
-
-
-
-
-	<!-- Footer
-			<footer id="footer">
-				<div class="container">
-					<ul class="icons">
-						<li><a href="https://www.facebook.com/barbora.byrtusova.1?ref=bookmarks" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="https://www.instagram.com/barcabyrtusova/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="https://www.deviantart.com" class="icon fa-heart"><span class="label">Heart</span></a></li>
-					</ul>
-				</div>
-				<div class="copyright">
-					&copy; Hielo by TEMPLATED. All rights reserved.
-				</div>
-			</footer> -->
 
 
 
