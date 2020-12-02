@@ -78,11 +78,11 @@
 		<script type="text/javascript">
 
 		//Create a new Client object with your broker's hostname, port and your own clientId
-		var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientId-9HL7JvIJNb");
+		var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientId-sUBZtDM4VY");
 		var publish = function (payload, topic, qos) {
 				//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
 				var message = new Messaging.Message(payload);
-				message.destinationName = "snektopic/1";
+				message.destinationName = "snektopic/#";
 				message.qos = qos;
 				client.send(message);
 		}
