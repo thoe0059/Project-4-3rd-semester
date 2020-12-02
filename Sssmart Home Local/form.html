@@ -38,11 +38,13 @@
 								Temperature(high, °C): <input type="text" name="temphigh" id="temphigh">
 								Humidity(low, %): <input type="text" name="humlow" id="humlow"> 
 								Humidity(high, %): <input type="text" name="humhigh" id="humhigh"><br>
-								<input type ="button" value="Publish" onclick="publish('efjierijoer !','snektopic/bar',2);"></button> <input type="button" value="Submit" onclick="submitForm();"><br>
+								<input type="button" value="Submit" onclick="submitForm();">
 								
 								</form>
 								<script>
 								function submitForm(){
+									publish('efjierijoer !','snektopic/bar',2);
+									//store the inputted data locally so they can be transfered to another page
 									if(typeof(localStorage) != "undefined"){
 										localStorage.species = document.getElementById("species").value;
 										localStorage.templow = document.getElementById("templow").value;
