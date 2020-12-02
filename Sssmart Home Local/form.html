@@ -43,11 +43,11 @@
 								</form>
 								<script>
 								function submitForm(){
-									publish(document.getElementById("species").value, 'snektopic/species',2)
-									publish(document.getElementById("templow").value, 'snektopic/templow',2)
-									publish(document.getElementById("temphigh").value, 'snektopic/temphigh',2)
-									publish(document.getElementById("humlow").value, 'snektopic/humlow',2)
-									publish(document.getElementById("humhigh").value, 'snektopic/humhigh',2)
+									publish(document.getElementById("species").value, 'sssmarthome/species',2)
+									publish(document.getElementById("templow").value, 'sssmarthome/templow',2)
+									publish(document.getElementById("temphigh").value, 'sssmarthome/temphigh',2)
+									publish(document.getElementById("humlow").value, 'sssmarthome/humlow',2)
+									publish(document.getElementById("humhigh").value, 'sssmarthome/humhigh',2)
 									//store the inputted data locally so they can be transfered to another page
 									if(typeof(localStorage) != "undefined"){
 										localStorage.species = document.getElementById("species").value;
@@ -82,7 +82,7 @@
 		var publish = function (payload, topic, qos) {
 				//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
 				var message = new Messaging.Message(payload);
-				message.destinationName = "snektopic/#";
+				message.destinationName = "sssmarthome";
 				message.qos = qos;
 				client.send(message);
 		}
