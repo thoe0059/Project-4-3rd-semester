@@ -43,7 +43,11 @@
 								</form>
 								<script>
 								function submitForm(){
-									publish('efjierijoer !','snektopic/bar',2);
+									publish(document.getElementById("species").value, 'snektopic/species',2)
+									publish(document.getElementById("templow").value, 'snektopic/templow',2)
+									publish(document.getElementById("temphigh").value, 'snektopic/temphigh',2)
+									publish(document.getElementById("humlow").value, 'snektopic/humlow',2)
+									publish(document.getElementById("humhigh").value, 'snektopic/humhigh',2)
 									//store the inputted data locally so they can be transfered to another page
 									if(typeof(localStorage) != "undefined"){
 										localStorage.species = document.getElementById("species").value;
