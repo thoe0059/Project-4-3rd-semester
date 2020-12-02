@@ -34,12 +34,14 @@
 								function autoControlON() {	
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned ON";
 									document.getElementById("autoToggle").style.color = "#80D513"
+									publish("Auto control ON", 'settings/#',2)
 								}	
 								
 
 								function autoControlOFF() {
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned OFF";
 									document.getElementById("autoToggle").style.color = "#E0003A"	
+									publish("Auto control OFF", 'settings/#',2)
 								} 
 								
 
@@ -60,8 +62,6 @@
 										localStorage.temphigh = document.getElementById("temphigh").value;
 										localStorage.humlow = document.getElementById("humlow").value;
 										localStorage.humhigh = document.getElementById("humhigh").value;
-										
-
 									}
 									document.getElementById('templow').value=''; 
             						document.getElementById('temphigh').value=''; 
@@ -76,24 +76,47 @@
 				</article>
 			</section>
 
-
-		<!-- Two 
-			<section id="two" class="wrapper style2">
-				<div class="inner">
-					<div class="box">
-						<div class="content">
-								</div>
-						</div>
-					</div>
-				</div>
-			</section> -->
-
 		<!-- Scripts -->
 		<script type="text/javascript" src="C:\Users\barca\Documents\GitHub\Project-4-3rd-semester\Sssmart Home Local\js\jquery.min.js"></script>
 		<script type="text/javascript" src="C:\Users\barca\Documents\GitHub\Project-4-3rd-semester\Sssmart Home Local\js\jquery.scrollex.min.js"></script>
 		<script type="text/javascript" src="C:\Users\barca\Documents\GitHub\Project-4-3rd-semester\Sssmart Home Local\js\\skel.min.js"></script>
 		<script type="text/javascript" src="C:\Users\barca\Documents\GitHub\Project-4-3rd-semester\Sssmart Home Local\js\\util.js"></script>
 		<script type="text/javascript" src="C:\Users\barca\Documents\GitHub\Project-4-3rd-semester\Sssmart Home Local\js\\main.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://www.hivemq.com/demos/websocket-client/js/mqttws31.js" ></script>
+		<script type="text/javascript">
 
+			//Create a new Client object with your broker's hostname, port and your own clientId
+			var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientId-9HL7JvIJNb");
+			var publish = function (payload, topic, qos) {
+					//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
+					var message = new Messaging.Message(payload);
+					message.destinationName = "settings/1";
+					message.qos = qos;
+					client.send(message);
+			}
+	
+			var options = {
+	
+				 //connection attempt timeout in seconds
+				 timeout: 3,
+	
+				 //Gets Called if the connection has successfully been established
+				 onSuccess: function () {
+					 alert("Connected");
+				 },
+	
+				 //Gets Called if the connection could not be established
+				 onFailure: function (message) {
+					 alert("Connection failed: " + message.errorMessage);
+				 }
+	
+			 };
+	
+			//Attempt to connect
+			client.connect(options);
+	
+			</script>
 	</body>
+
 </html>
