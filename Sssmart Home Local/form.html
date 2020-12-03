@@ -34,20 +34,20 @@
 							<h3><b>Add your animal</b></h3>
 							<form id="form" method="GET" action="customanimal.html"><br>
 								Species: <input type="text" name="species" id="species">
-								Temperature(low, °C): <input type="text" name="templow" id="templow"> 
+								Temperature(low, °C): <input type="text" name="templow" id="templow">
 								Temperature(high, °C): <input type="text" name="temphigh" id="temphigh">
-								Humidity(low, %): <input type="text" name="humlow" id="humlow"> 
+								Humidity(low, %): <input type="text" name="humlow" id="humlow">
 								Humidity(high, %): <input type="text" name="humhigh" id="humhigh"><br>
 								<input type="button" value="Submit" onclick="submitForm();">
-								
+
 								</form>
 								<script>
 								function submitForm(){
-									publish(document.getElementById("species").value, 'species',2)
-									publish(document.getElementById("templow").value, 'templow',2)
-									publish(document.getElementById("temphigh").value, 'temphigh',2)
-									publish(document.getElementById("humlow").value, 'humlow',2)
-									publish(document.getElementById("humhigh").value, 'humhigh',2)
+									publish(document.getElementById("species").value, 'species',1)
+									publish(document.getElementById("templow").value, 'templow',1)
+									publish(document.getElementById("temphigh").value, 'temphigh',1)
+									publish(document.getElementById("humlow").value, 'humlow',1)
+									publish(document.getElementById("humhigh").value, 'humhigh',1)
 									//store the inputted data locally so they can be transfered to another page
 									if(typeof(localStorage) != "undefined"){
 										localStorage.species = document.getElementById("species").value;

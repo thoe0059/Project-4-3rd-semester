@@ -19,7 +19,7 @@
 					<li><a href="animals.html">Choose Animal</a></li>
 				</ul>
 			</nav>
-			
+
 
 			<section class="banner full">
 				<article>
@@ -29,21 +29,21 @@
 							<h2><b>SETTINGS</b></h2><br>
 							<button onclick="autoControlON()" type = "submit" id = "buttonON">Turn the auto control ON</button>  <button onclick="autoControlOFF()" type = "submit" id = "buttonOFF">Turn the auto control OFF</button>
 							<h4 id="autoToggle"></h4>
-							
+
 							<script>
-								function autoControlON() {	
+								function autoControlON() {
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned ON";
 									document.getElementById("autoToggle").style.color = "#80D513"
-									publish("Auto control ON", 'toggleControl',2)
-								}	
-								
+									publish("Auto control ON", 'toggleControl',1)
+								}
+
 
 								function autoControlOFF() {
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned OFF";
-									document.getElementById("autoToggle").style.color = "#E0003A"	
-									publish("Auto control OFF", 'toggleControl',2)
-								} 
-								
+									document.getElementById("autoToggle").style.color = "#E0003A"
+									publish("Auto control OFF", 'toggleControl',1)
+								}
+
 
 							</script>
 							<br><h4><b>Change range manually</b></h4>
@@ -57,10 +57,10 @@
 							</form>
 							<script>
 								function submitForm(){
-									publish(document.getElementById("templow").value, 'range/templow',2)
-									publish(document.getElementById("temphigh").value, 'range/temphigh',2)
-									publish(document.getElementById("humlow").value, 'range/humlow',2)
-									publish(document.getElementById("humhigh").value, 'range/humhigh',2)
+									publish(document.getElementById("templow").value, 'range/templow',1)
+									publish(document.getElementById("temphigh").value, 'range/temphigh',1)
+									publish(document.getElementById("humlow").value, 'range/humlow',1)
+									publish(document.getElementById("humhigh").value, 'range/humhigh',1)
 
 									if(typeof(localStorage) != "undefined"){
 										localStorage.templow = document.getElementById("templow").value;
@@ -68,10 +68,10 @@
 										localStorage.humlow = document.getElementById("humlow").value;
 										localStorage.humhigh = document.getElementById("humhigh").value;
 									}
-									document.getElementById('templow').value=''; 
-            						document.getElementById('temphigh').value=''; 
+									document.getElementById('templow').value='';
+            						document.getElementById('temphigh').value='';
             						document.getElementById('humlow').value='';
-									document.getElementById('humhigh').value=''; 
+									document.getElementById('humhigh').value='';
 									document.getElementById("settingsForm").submit();
 									alert("The changes were saved");
 								}
@@ -100,23 +100,23 @@
 					message.qos = qos;
 					client.send(message);
 			}
-	
+
 			var options = {
-	
+
 				 //connection attempt timeout in seconds
 				 timeout: 3,
 
-	
+
 				 //Gets called if the connection could not be established
 				 onFailure: function (message) {
 					 alert("Connection failed: " + message.errorMessage);
 				 }
-	
+
 			 };
-	
+
 			//Attempt to connect
 			client.connect(options);
-	
+
 		</script>
 	</body>
 
