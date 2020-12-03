@@ -34,14 +34,14 @@
 								function autoControlON() {	
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned ON";
 									document.getElementById("autoToggle").style.color = "#80D513"
-									publish("Auto control ON", 'settings/#',2)
+									publish("Auto control ON", 'toggleControl',2)
 								}	
 								
 
 								function autoControlOFF() {
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned OFF";
 									document.getElementById("autoToggle").style.color = "#E0003A"	
-									publish("Auto control OFF", 'settings/#',2)
+									publish("Auto control OFF", 'toggleControl',2)
 								} 
 								
 
@@ -57,10 +57,10 @@
 								</form>
 								<script>
 								function submitForm(){
-									publish(document.getElementById("templow").value, 'sssmarthome/templow',2)
-									publish(document.getElementById("temphigh").value, 'sssmarthome/temphigh',2)
-									publish(document.getElementById("humlow").value, 'sssmarthome/humlow',2)
-									publish(document.getElementById("humhigh").value, 'sssmarthome/humhigh',2)
+									publish(document.getElementById("templow").value, 'range/templow',2)
+									publish(document.getElementById("temphigh").value, 'range/temphigh',2)
+									publish(document.getElementById("humlow").value, 'range/humlow',2)
+									publish(document.getElementById("humhigh").value, 'range/humhigh',2)
 
 									if(typeof(localStorage) != "undefined"){
 										localStorage.templow = document.getElementById("templow").value;
@@ -96,7 +96,7 @@
 			var publish = function (payload, topic, qos) {
 					//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
 					var message = new Messaging.Message(payload);
-					message.destinationName = "sssmarthome";
+					message.destinationName = "sssmarthome/settings/" + topic;
 					message.qos = qos;
 					client.send(message);
 			}
@@ -105,11 +105,7 @@
 	
 				 //connection attempt timeout in seconds
 				 timeout: 3,
-	
-				 //Gets Called if the connection has successfully been established
-				 onSuccess: function () {
-					 alert("Connected");
-				 },
+
 	
 				 //Gets Called if the connection could not be established
 				 onFailure: function (message) {
