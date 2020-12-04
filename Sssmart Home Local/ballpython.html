@@ -70,6 +70,32 @@
 			<script type="text/javascript" src="js/skel.min.js"></script>
 			<script type="text/javascript" src="js/util.js"></script>
 			<script type="text/javascript" src="js/main.js"></script>
+			<script type="text/javascript" src="http://www.hivemq.com/demos/websocket-client/js/mqttws31.js" ></script>
+			<script type="text/javascript">
 
+			//Create a new Client object with your broker's hostname, port and your own clientId
+var client = new Messaging.Client(hostname, port, clientid);
+var temp = client.subscribe("ssshome/livedata/temp", {qos: 0});
+
+var options = {
+
+     //connection attempt timeout in seconds
+     timeout: 3,
+
+     //Gets Called if the connection has successfully been established
+     onSuccess: function () {
+         alert("Connected");
+     },
+
+     //Gets Called if the connection could not be established
+     onFailure: function (message) {
+         alert("Connection failed: " + message.errorMessage);
+     }
+
+ };
+
+//Attempt to connect
+client.connect(options);
+	</script>
 	</body>
 </html>
