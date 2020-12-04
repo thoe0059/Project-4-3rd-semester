@@ -29,8 +29,10 @@
 					<div class="inner">
 						<header>
 							<h2><b>Ball Python</b></h2><br>
-							<h3><b>Current temperature: </b></h3> <span id="temp"> </span> <br>
-							<h3><b>Current humidity:</b></h3> <span id="hum"> </span> <br>
+							<h3><b>Current temperature</b></h3> 
+							<h4><b><span style="color:#FF5321" id="temp"></span><span style="color:#FF5321"> °C</span></b></h4><br>
+							<h3><b>Current humidity</b></h3>
+							<h4><b><span style="color:#3BEAF4" id="hum"></span><span style="color:#3BEAF4"> %</span></b></h4>
 						</header>
 					</div>
 				</article>
@@ -91,11 +93,11 @@ client.onMessageArrived = function (message) {
 		//Do something with the push message you received
 		if (message.destinationName == 'ssshome/livedata/temp' )
 		{
-		$('#temp').empty().append('<span>' + message.payloadString + '</span><br/>');
+		$('#temp').empty().append('<span>' + message.payloadString + '</span>');
 	}
 	if (message.destinationName == 'ssshome/livedata/hum' )
 	{
-	$('#hum').empty().append('<span>' + message.payloadString + '</span><br/>');
+	$('#hum').empty().append('<span>' + message.payloadString + '</span>');
 }
 };
 //console.log("It works 3");
@@ -117,7 +119,7 @@ client.connect(options);
 
 function subscribe () {
 	client.subscribe('ssshome/livedata/temp', {qos: 2}); console.log("Subscribed to temperature");
-	client.subscribe('ssshome/livedata/hum', {qos: 2}); console.log("Subscribed to humidty");
+	client.subscribe('ssshome/livedata/hum', {qos: 2}); console.log("Subscribed to humidity");
 }
 setTimeout(subscribe, 3000);
 	</script>
