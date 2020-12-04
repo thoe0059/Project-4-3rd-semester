@@ -5,8 +5,8 @@
 
 DHT dht(14, DHT22);              // Initialize DHT sensor DHT22
 
-const char* ssid = "Kviknet-9C84";         // Update the value suitable for your network
-const char* password = "H47RNI4T2LC7N2";             // Update the value suitable for your network
+const char* ssid = "Thoeger";         // Update the value suitable for your network
+const char* password = "thoeger123";             // Update the value suitable for your network
 const char* mqtt_server = "broker.mqtt-dashboard.com";
 String mqttTopicTemp, mqttTopicHum;
 char mqttTopicTempChar[80];
