@@ -4,7 +4,6 @@
 #include <DHT.h>
 
 DHT dht(14, DHT22);              // Initialize DHT sensor DHT22
-
 const char* ssid = "ITEK 3rd";         // Update the value suitable for your network
 const char* password = "roedgroedmedfloede";             // Update the value suitable for your network
 const char* mqtt_server = "broker.mqtt-dashboard.com";
@@ -90,12 +89,12 @@ void reconnect() {
 void setup() {
   // put your setup code here, to run once:
    pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
+   pinMode(12, OUTPUT);
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   dht.begin(); // Begin reading sensor data from DHT.
-
 
 
 mqttTopicTemp = "ssshome/livedata/temp";
@@ -130,6 +129,16 @@ void loop() {
     Serial.print("Humidity %: ");
     Serial.println(point1Msg);
     client.publish(mqttTopicHumChar, point1Msg);
+  }
+    if (dht.readTemperature() < 25){ 
+      digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage HIGH
+      digitalWrite(12, HIGH);
+}
+    else if (dht.readTemperature() > 25){
+      digitalWrite(12, LOW);
+      digitalWrite(LED_BUILTIN, HIGH);
+      Serial.println("Temperature is too high - adjusting it now");
+      delay(1000);
   }
 
 }
