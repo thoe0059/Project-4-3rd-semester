@@ -36,57 +36,99 @@
 					<div class="gallery">
 						<div>
 							<div class="image fit"> <!--all pics are 1000x650 approximately (height is a bit less due to watermark crop)-->
-								<a href="ballpython.html"><img src="pictures/ball1.jpg" alt="" /></a>
+								<a onclick = "ballpython()" href="ballpython.html"><img src="pictures/ball1.jpg" alt=""/></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="dragon.html"><img src="pictures/dragon.jpg" alt="" /></a>
+								<a onclick = "dragon()" href="dragon.html"><img src="pictures/dragon.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="boa.html"><img src="pictures/boa1.jpg" alt="" /></a>
+								<a onclick = "boa()" href="boa.html"><img src="pictures/boa1.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="chameleon.html"><img src="pictures/chameleone.jpg" alt="" /></a>
+								<a onclick = "chameleon()" href="chameleon.html"><img src="pictures/chameleone.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="cornsnake.html"><img src="pictures/corn1.jpg" alt="" /></a>
+								<a onclick = "cornsnake()" href="cornsnake.html"><img src="pictures/corn1.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="gtp.html"><img src="pictures/gtp.jpg" alt="" /></a>
+								<a onclick = "gtp()" href="gtp.html"><img src="pictures/gtp.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="hognose.html"><img src="pictures/hognose.jpg" alt="" /></a>
+								<a onclick = "hognose()" href="hognose.html"><img src="pictures/hognose.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="kingsnake.html"><img src="pictures/king1.jpg" alt="" /></a>
+								<a onclick = "kingsnake()" href="kingsnake.html"><img src="pictures/king1.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="leogecko.html"><img src="pictures/gecko.jpg" alt="" /></a>
+								<a onclick = "gecko()" href="leogecko.html"><img src="pictures/gecko.jpg" alt="" /></a>
 							</div>
 						</div>
 						<div>
 							<div class="image fit">
-								<a href="rtortoise.html"><img src="pictures/tortoise.jpg" alt="" /></a>
+								<a onclick = "rtortoise()" href="rtortoise.html"><img src="pictures/tortoise.jpg" alt="" /></a>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
+
+			<script>
+				function ballpython(){
+					publish("ballpython", "ballpython", 1);
+				}
+
+				function dragon(){
+					publish("dragon", "dragon", 1);
+				}
+
+				function boa(){
+					publish("boa", "boa", 1);
+				}
+
+				function chameleon(){
+					publish("chameleon", "chameleon", 1);
+				}
+
+				function cornsnake(){
+					publish("cornsnake", "cornsnake", 1);
+				}
+
+				function gtp(){
+					publish("gtp", "gtp", 1);
+				}
+
+				function hognose(){
+					publish("hognose", "hognose", 1);
+				}
+
+				function kingsnake(){
+					publish("kingsnake", "kingsnake", 1);
+				}
+
+				function gecko(){
+					publish("gecko", "gecko", 1);
+				}
+				
+				function rtortoise(){
+					publish("rtortoise", "rtortoise", 1);
+				}
+			</script>
 
 			<!-- Scripts -->
 			<script type="text/javascript" src="js/jquery.min.js"></script>
@@ -94,6 +136,39 @@
 			<script type="text/javascript" src="js/skel.min.js"></script>
 			<script type="text/javascript" src="js/util.js"></script>
 			<script type="text/javascript" src="js/main.js"></script>
+			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+			<script type="text/javascript" src="http://www.hivemq.com/demos/websocket-client/js/mqttws31.js" ></script>
+			<script type="text/javascript">
+
+		//Create a new Client object with your broker's hostname, port and your own clientId
+		//Client ID doesn't really matter, on the contrary, it will break everything if it's identical to the MQTT broker ID
+		var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "clientId-sUBZtDM4VY");
+		var publish = function (payload, topic, qos) {
+				//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
+				var message = new Messaging.Message(payload);
+				message.destinationName = "ssshome/animal/" + topic;
+				message.qos = qos;
+				client.send(message);
+		}
+
+		var options = {
+
+		     //connection attempt timeout in seconds
+		     timeout: 3,
+
+		     //Gets Called if the connection could not be established
+		     onFailure: function (message) {
+		         alert("Connection failed: " + message.errorMessage);
+		     }
+
+		 };
+
+		//Attempt to connect
+		client.connect(options);
+
+		</script>
+
+
 
 	</body>
 </html>
