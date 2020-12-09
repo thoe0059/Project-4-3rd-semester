@@ -10,6 +10,7 @@ const char* mqtt_server = "broker.mqtt-dashboard.com";
 String mqttTopicTemp, mqttTopicHum;
 char mqttTopicTempChar[80];
 char mqttTopicHumChar[80];
+char msgIN;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -17,6 +18,8 @@ unsigned long lastMsg = 0;
 char msg[50];
 char point1Msg[50];
 int value = 0;
+int templow;
+int temphigh;
 
 void setup_wifi() {
 
@@ -43,24 +46,61 @@ void setup_wifi() {
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
 
-  // Switch on the LED if an 1 was received as first character
-  if ((char)payload[0] == '1') {
-    digitalWrite(BUILTIN_LED, LOW);   // Turn the LED on (Note that LOW is the voltage level
-    // but actually the LED is on; this is because
-    // it is active low on the ESP-01)
-  } else {
-    digitalWrite(BUILTIN_LED, HIGH);  // Turn the LED off by making the voltage HIGH
+payload[length] = '\0';
+  String s = String((char*)payload);
+  if (s == "ballpython") {
+  Serial.println("Applying settings for ballpython, templow 28°C, temphigh 30°C");
+  templow = 28;
+  temphigh = 30; 
   }
-
+  else if (s == "dragon") {
+  Serial.println("Applying settings for dragon, templow 24°C, temphigh 29°C");
+  templow = 24;
+  temphigh = 29; 
 }
+  else if (s == "boa") {
+  Serial.println("Applying settings for boa, templow 27°C, temphigh 29°C");
+  templow = 27;
+  temphigh = 29; 
+}
+else if (s == "chameleon") {
+  Serial.println("Applying settings for chameleon, templow 25°C, temphigh 27°C");
+  templow = 25;
+  temphigh = 27; 
+}
+else if (s == "cornsnake") {
+  Serial.println("Applying settings for cornsnake, templow 25°C, temphigh 27°C");
+  templow = 25;
+  temphigh = 27; 
+}
+else if (s == "gtp") {
+  Serial.println("Applying settings for gtp, templow 26°C, temphigh 29°C");
+  templow = 26;
+  temphigh = 29; 
+}
+else if (s == "hognose") {
+  Serial.println("Applying settings for hognose, templow 25°C, temphigh 27°C");
+  templow = 25;
+  temphigh = 27; 
+}
+else if (s == "kingsnake") {
+  Serial.println("Applying settings for kingsnake, templow 26°C, temphigh 29°C");
+  templow = 26;
+  temphigh = 29; 
+}
+else if (s == "gecko") {
+  Serial.println("Applying settings for gecko, templow 26°C, temphigh 28°C");
+  templow = 26;
+  temphigh = 28; 
+}
+else if (s == "rtortoise") {
+  Serial.println("Applying settings for russian tortoise, templow 22°C, temphigh 30°C");
+  templow = 22;
+  temphigh = 30; 
+}
+  }
+
 
 void reconnect() {
   // Loop until we're reconnected
@@ -73,9 +113,9 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("ssshome/esp", "I'm Connected");
+      client.publish("ssshome/animal/", "I'm Connected");
       // ... and resubscribe
-      client.subscribe("ssshome/esp");
+      client.subscribe("ssshome/animal/#");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -90,6 +130,8 @@ void setup() {
   // put your setup code here, to run once:
    pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
    pinMode(12, OUTPUT);
+   pinMode(12, OUTPUT); //Heating lamp
+   pinMode(13, OUTPUT); //Fan
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
@@ -130,15 +172,21 @@ void loop() {
     Serial.println(point1Msg);
     client.publish(mqttTopicHumChar, point1Msg);
   }
-    if (dht.readTemperature() < 25){ 
+
+
+    if (dht.readTemperature() < templow){ 
       digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage HIGH
       digitalWrite(12, HIGH);
+      Serial.println("Temperature is too low - adjusting..");
+      delay(1000);
 }
-    else if (dht.readTemperature() > 25){
+    else if (dht.readTemperature() > temphigh){
       digitalWrite(12, LOW);
       digitalWrite(LED_BUILTIN, HIGH);
-      Serial.println("Temperature is too high - adjusting it now");
+      Serial.println("Temperature is too high - adjusting..");
       delay(1000);
   }
+
+  
 
 }
