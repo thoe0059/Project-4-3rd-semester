@@ -10,7 +10,7 @@ const char* mqtt_server = "broker.mqtt-dashboard.com";
 String mqttTopicTemp, mqttTopicHum;
 char mqttTopicTempChar[80];
 char mqttTopicHumChar[80];
-char msgIN;
+char msgIN; // For converting byte to char.
 
 WiFiClient espClient;
 PubSubClient client(espClient);
