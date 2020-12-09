@@ -129,7 +129,6 @@ void reconnect() {
 void setup() {
   // put your setup code here, to run once:
    pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
-   pinMode(12, OUTPUT);
    pinMode(12, OUTPUT); //Heating lamp
    pinMode(13, OUTPUT); //Fan
   Serial.begin(115200);
