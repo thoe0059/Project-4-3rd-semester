@@ -35,7 +35,7 @@
 					</header>
 					<div class="gallery">
 						<div>
-							<div class="image fit"> <!--all pics are 1000x650 approximately (height is a bit less due to watermark crop)-->
+							<div class="image fit">
 								<a onclick = "ballpython()" href="ballpython.html"><img src="pictures/ball1.jpg" alt=""/></a>
 							</div>
 						</div>
@@ -90,7 +90,7 @@
 
 			<script>
 				function ballpython(){
-					publish("ballpython", "ballpython", 1);
+					publish("ballpython", "ballpython", 1); //payload, topic, QoS
 				}
 
 				function dragon(){
