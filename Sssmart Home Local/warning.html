@@ -40,12 +40,11 @@
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th><div align = "center">Time</div></th><th><div align = "center">Warning</div></th></tr>
+											<tr><th><div align = "center">Warning</div></th></tr>
 										</thead>
 										<tbody>
 											<tr class="spaceUnder">
-												<td style="width:30%"><div align = "center">time</td>
-												<td style="width:60%"><div align = "center">warning</td>
+												<td style="width:60%"><div align = "center"><span style="color:#FF5321" id="warning"></span></td>
 											</tr>
 									</table>
 								</div>
@@ -60,6 +59,51 @@
 		<script type="text/javascript" src="js\\skel.min.js"></script>
 		<script type="text/javascript" src="js\\util.js"></script>
 		<script type="text/javascript" src="js\\main.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+		<script src="http://www.hivemq.com/demos/websocket-client/js/mqttws31.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+
+			//Create a new Client object with your broker's hostname, port and your own clientId
+var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "espclient123");
+//console.log("It works");
+//Gets  called if the websocket/mqtt connection gets disconnected for any reason
+client.onConnectionLost = function (responseObject) {
+		//Depending on your scenario you could implement a reconnect logic here
+		alert("connection lost: " + responseObject.errorMessage);
+};
+//console.log("Connection lost");
+
+//console.log("It works 2");
+//Gets called whenever you receive a message for your subscriptions
+client.onMessageArrived = function (message) {
+		//Do something with the push message you received
+		if (message.destinationName == 'ssshome/warning/' )
+		{
+		$('#warning').empty().append('<span>' + message.payloadString + '</span>');
+	}
+};
+//console.log("It works 3");
+
+//Connect Options
+var options = {
+		timeout: 3,
+		//Gets Called if the connection has sucessfully been established
+		//onSuccess: function () {
+		//alert("Connected");},
+		//Gets Called if the connection could not be established
+		onFailure: function (message) {
+				alert("Connection failed: " + message.errorMessage);
+		}
+};
+
+client.connect(options);
+
+function subscribe () {
+	client.subscribe('ssshome/warning/', {qos: 2}); console.log("Subscribed to warnings");
+}
+setTimeout(subscribe, 3000);
+	</script>
 
 	</body>
 </html>
