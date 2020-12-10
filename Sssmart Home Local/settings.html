@@ -21,14 +21,16 @@
 			</nav>
 
 
-			<section class="banner full">
+			<section class="banner settings"> <!-- this uses a special CSS class so it's not scrollable -->
 				<article>
-					<img src="pictures/black.jpg" alt="" />
+					<img src="pictures/settings.jpg" alt="" />
 					<div class="inner">
 						<header>
+							<h3><br></h3>
 							<h2><b>SETTINGS</b></h2><br>
 							<button onclick="autoControlON()" type = "submit" id = "buttonON">Turn the auto control ON</button>  <button onclick="autoControlOFF()" type = "submit" id = "buttonOFF">Turn the auto control OFF</button>
 							<h4 id="autoToggle"></h4>
+						
 
 							<script>
 								function autoControlON() {
@@ -44,9 +46,10 @@
 									publish("Auto control OFF", 'toggleControl',1)
 								}
 
-
+							
 							</script>
-							<br><h4><b>Change range manually</b></h4>
+
+						<!--	<br><h4><b>Change range manually</b></h4>
 							<h4 id = "changeRange"></h4>
 							<form id="settingsForm" method="GET">
 								Temperature(low, °C): <input type="text" name="templow" id="templow">
@@ -75,7 +78,7 @@
 									document.getElementById("settingsForm").submit();
 									alert("The changes were saved");
 								}
-							</script>
+							</script> -->
 						</header>
 					</div>
 				</article>
