@@ -213,14 +213,14 @@ void loop() {
       digitalWrite(12, HIGH);
       //Serial.println("Temperature is too low - adjusting..");
       client.publish("ssshome/warning/", "Temperature too low - adjusting.."); 
-      delay(1000);
+      delay(5000);
 }
     else if (dht.readTemperature() > temphigh){
       digitalWrite(12, LOW);
       digitalWrite(LED_BUILTIN, HIGH);
       //Serial.println("Temperature is too high - adjusting..");
       client.publish("ssshome/warning/", "Temperature too high - adjusting..");
-      delay(1000);
+      delay(5000);
   }
   
   //-----Control for humidity ranges------
@@ -229,13 +229,13 @@ void loop() {
       digitalWrite(13, LOW);
       //Serial.println("Humidity is too low - make it rain..");
       client.publish("ssshome/warning/", "Humidity too low - please raise it");
-      delay(1000);
+      delay(5000);
 }
     else if (dht.readHumidity() > humhigh){
       digitalWrite(13, HIGH);
       //Serial.println("Humidity is too high - adjusting..");
       client.publish("ssshome/warning/", "Humidity too high - adjusting..");
-      delay(1000);
+      delay(5000);
   }
 
   
