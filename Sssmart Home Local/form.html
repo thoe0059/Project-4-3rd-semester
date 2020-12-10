@@ -26,7 +26,7 @@
 						<header>
 							<h3><b>Add your animal</b></h3>
 							<form id="form" method="GET" action="customanimal.html"><br>
-								Species: <input type="text" name="species" id="species">
+								Species: <input type="text" name="custom" id="species">
 								Temperature(low, °C): <input type="text" name="templow" id="customTL">
 								Temperature(high, °C): <input type="text" name="temphigh" id="customTH">
 								Humidity(low, %): <input type="text" name="humlow" id="customHL">
@@ -36,7 +36,7 @@
 								</form>
 								<script>
 								function submitForm(){
-									publish(document.getElementById("species").value, 'species',1)
+									publish("custom", 'species',1)
 									publish(document.getElementById("customTL").value, 'customTL',1)
 									publish(document.getElementById("customTH").value, 'customTH',1)
 									publish(document.getElementById("customHL").value, 'customHL',1)
