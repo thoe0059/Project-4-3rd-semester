@@ -36,11 +36,11 @@
 								</form>
 								<script>
 								function submitForm(){
-									publish("custom", 'species',1)
-									publish(document.getElementById("customTL").value, 'customTL',1)
-									publish(document.getElementById("customTH").value, 'customTH',1)
-									publish(document.getElementById("customHL").value, 'customHL',1)
-									publish(document.getElementById("customHH").value, 'customHH',1)
+									publish("custom", 'animal',1)
+									publish(document.getElementById("customTL").value, 'custom/TL',1)
+									publish(document.getElementById("customTH").value, 'custom/TH',1)
+									publish(document.getElementById("customHL").value, 'custom/HL',1)
+									publish(document.getElementById("customHH").value, 'custom/HH',1)
 									//store the inputted data locally so they can be transfered to another page
 									if(typeof(localStorage) != "undefined"){
 										localStorage.species = document.getElementById("species").value;
@@ -76,7 +76,7 @@
 		var publish = function (payload, topic, qos) {
 				//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
 				var message = new Messaging.Message(payload);
-				message.destinationName = "ssshome/custom/" + topic;
+				message.destinationName = "ssshome/" + topic;
 				message.qos = qos;
 				client.send(message);
 		}
