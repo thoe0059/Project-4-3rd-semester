@@ -3,9 +3,9 @@
 #include <PubSubClient.h> 
 #include <DHT.h>
 
-DHT dht(14, DHT22);              // Initialize DHT sensor DHT22
-const char* ssid = "ITEK 3rd";         // Update the value suitable for your network
-const char* password = "roedgroedmedfloede";             // Update the value suitable for your network
+DHT dht(14, DHT22); // Initialize DHT sensor DHT22
+const char* ssid = "ITEK 3rd";  //Wifi name
+const char* password = "roedgroedmedfloede";  //Wi-Fi Password
 const char* mqtt_server = "broker.mqtt-dashboard.com";
 String mqttTopicTemp, mqttTopicHum;
 char mqttTopicTempChar[80];
@@ -49,75 +49,75 @@ void setup_wifi() {
 
 void callback(char* topic, byte* payload, unsigned int length) {
 
-payload[length] = '\0';
+payload[length] = '\0'; //Convert payload byte to string.
   String s = String((char*)payload);
 
- 
+ //Compare value of string to preconfigured animal species.
   if (s == "ballpython") {
-  Serial.println("Applying settings for ballpython, tlow 28°C, thi 30°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for ballpython, tlow 28°C, thi 30°C, hLow 50, hHi 75");
   templow = 28;
   temphigh = 30; 
   humlow = 50;
   humhigh = 75;
   }
   else if (s == "dragon") {
-  Serial.println("Applying settings for dragon, tlow 24°C, thi 29°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for dragon, tlow 24°C, thi 29°C, hLow 50, hHi 75");
   templow = 24;
   temphigh = 29; 
   humlow = 25;
   humhigh = 40;
 }
   else if (s == "boa") {
-  Serial.println("Applying settings for boa, tlow 27°C, thi 29°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for boa, tlow 27°C, thi 29°C, hLow 50, hHi 75");
   templow = 27;
   temphigh = 29;
   humlow = 55;
   humhigh = 75; 
 }
 else if (s == "chameleon") {
-  Serial.println("Applying settings for chameleon, tlow 25°C, thi 27°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for chameleon, tlow 25°C, thi 27°C, hLow 50, hHi 75");
   templow = 25;
   temphigh = 27; 
   humlow = 65;
   humhigh = 80;
 }
 else if (s == "cornsnake") {
-  Serial.println("Applying settings for cornsnake, tlow 25°C, thi 27°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for cornsnake, tlow 25°C, thi 27°C, hLow 50, hHi 75");
   templow = 25;
   temphigh = 27; 
   humlow = 40;
   humhigh = 50;
 }
 else if (s == "gtp") {
-  Serial.println("Applying settings for gtp, tlow 26°C, thi 29°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for gtp, tlow 26°C, thi 29°C, hLow 50, hHi 75");
   templow = 26;
   temphigh = 29; 
   humlow = 50;
   humhigh = 80;
 }
 else if (s == "hognose") {
-  Serial.println("Applying settings for hognose, tlow 25°C, thi 27°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for hognose, tlow 25°C, thi 27°C, hLow 50, hHi 75");
   templow = 25;
   temphigh = 27; 
   humlow = 30;
   humhigh = 65;
 }
 else if (s == "kingsnake") {
-  Serial.println("Applying settings for kingsnake, tlow 26°C, thi 29°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for kingsnake, tlow 26°C, thi 29°C, hLow 50, hHi 75");
   templow = 26;
   temphigh = 29; 
   humlow = 35;
   humhigh = 60;
 }
 else if (s == "gecko") {
-  Serial.println("Applying settings for gecko, tlow 26°C, thi 28°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for gecko, tLow 26°C, tHi 28°C, hLow 50, hHi 75");
   templow = 26;
   temphigh = 28; 
   humlow = 30;
   humhigh = 40;
 }
 else if (s == "rtortoise") {
-  Serial.println("Applying settings for russian tortoise, tlow 22°C, thi 30°C, humlow 50, humhigh 75");
+  Serial.println("Applying settings for russian tortoise, tLow 22°C, tHi 30°C, hLow 50, hHi 75");
   templow = 22;
   temphigh = 30; 
   humlow = 40;
