@@ -124,7 +124,7 @@
 				function gecko(){
 					publish("gecko", "gecko", 1);
 				}
-				
+
 				function rtortoise(){
 					publish("rtortoise", "rtortoise", 1);
 				}
@@ -146,7 +146,7 @@
 		var publish = function (payload, topic, qos) {
 				//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
 				var message = new Messaging.Message(payload);
-				message.destinationName = "ssshome/animal/" + topic;
+				message.destinationName = "ssshome/animal/";
 				message.qos = qos;
 				client.send(message);
 		}
