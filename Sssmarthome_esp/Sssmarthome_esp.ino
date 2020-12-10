@@ -18,8 +18,10 @@ unsigned long lastMsg = 0;
 char msg[50];
 char point1Msg[50];
 int value = 0;
-int templow;
-int temphigh;
+float templow;
+float temphigh;
+float humlow;
+float humhigh;
 
 void setup_wifi() {
 
@@ -53,51 +55,71 @@ payload[length] = '\0';
   Serial.println("Applying settings for ballpython, templow 28°C, temphigh 30°C");
   templow = 28;
   temphigh = 30; 
+  humlow = 50;
+  humhigh = 75;
   }
   else if (s == "dragon") {
   Serial.println("Applying settings for dragon, templow 24°C, temphigh 29°C");
   templow = 24;
   temphigh = 29; 
+  humlow = 25;
+  humhigh = 40;
 }
   else if (s == "boa") {
   Serial.println("Applying settings for boa, templow 27°C, temphigh 29°C");
   templow = 27;
-  temphigh = 29; 
+  temphigh = 29;
+  humlow = 55;
+  humhigh = 75; 
 }
 else if (s == "chameleon") {
   Serial.println("Applying settings for chameleon, templow 25°C, temphigh 27°C");
   templow = 25;
   temphigh = 27; 
+  humlow = 65;
+  humhigh = 80;
 }
 else if (s == "cornsnake") {
   Serial.println("Applying settings for cornsnake, templow 25°C, temphigh 27°C");
   templow = 25;
   temphigh = 27; 
+  humlow = 40;
+  humhigh = 50;
 }
 else if (s == "gtp") {
   Serial.println("Applying settings for gtp, templow 26°C, temphigh 29°C");
   templow = 26;
   temphigh = 29; 
+  humlow = 50;
+  humhigh = 80;
 }
 else if (s == "hognose") {
   Serial.println("Applying settings for hognose, templow 25°C, temphigh 27°C");
   templow = 25;
   temphigh = 27; 
+  humlow = 30;
+  humhigh = 65;
 }
 else if (s == "kingsnake") {
   Serial.println("Applying settings for kingsnake, templow 26°C, temphigh 29°C");
   templow = 26;
   temphigh = 29; 
+  humlow = 35;
+  humhigh = 60;
 }
 else if (s == "gecko") {
   Serial.println("Applying settings for gecko, templow 26°C, temphigh 28°C");
   templow = 26;
   temphigh = 28; 
+  humlow = 30;
+  humhigh = 40;
 }
 else if (s == "rtortoise") {
   Serial.println("Applying settings for russian tortoise, templow 22°C, temphigh 30°C");
   templow = 22;
   temphigh = 30; 
+  humlow = 40;
+  humhigh = 60;
 }
   }
 
@@ -171,7 +193,8 @@ void loop() {
     Serial.println(point1Msg);
     client.publish(mqttTopicHumChar, point1Msg);
   }
-
+  
+ //Control for temperature ranges
 
     if (dht.readTemperature() < templow){ 
       digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage HIGH
@@ -183,6 +206,18 @@ void loop() {
       digitalWrite(12, LOW);
       digitalWrite(LED_BUILTIN, HIGH);
       Serial.println("Temperature is too high - adjusting..");
+      delay(1000);
+  }
+  //Control for humidity ranges
+  
+  if (dht.readHumidity() < humlow){ 
+      digitalWrite(13, LOW);
+      Serial.println("Humidity is too low - make it rain..");
+      delay(1000);
+}
+    else if (dht.readHumidity() > humhigh){
+      digitalWrite(13, HIGH);
+      Serial.println("Humidity is too high - adjusting..");
       delay(1000);
   }
 
