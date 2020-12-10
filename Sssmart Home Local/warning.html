@@ -74,13 +74,21 @@ client.onConnectionLost = function (responseObject) {
 };
 //console.log("Connection lost");
 
+var currentdate = new Date();
+var datetime = "Recieved at " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+
 //console.log("It works 2");
 //Gets called whenever you receive a message for your subscriptions
 client.onMessageArrived = function (message) {
 		//Do something with the push message you received
 		if (message.destinationName == 'ssshome/warning/' )
 		{
-		$('#warning').empty().append('<span>' + message.payloadString + '</span>');
+		$('#warning').append(datetime + '<span>' + message.payloadString + '</span> <br>');
 	}
 };
 //console.log("It works 3");
