@@ -40,11 +40,11 @@
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th><div align = "center">Warning</div></th></tr>
+											<tr><th><div align = "center">Time</div></th><th><div align = "center">Warning</div></th></tr>
 										</thead>
 										<tbody>
 											<tr class="spaceUnder">
-												<td style="width:60%"><div align = "center"><span style="color:#FF5321" id="warning"></span></td>
+												<td style="width:40%"><div align = "center"><b><span style="color:#00509b" id="time"></span></b></td><td style="width:60%"><div align = "center"><b><span style="color:#9c0034" id="warning"></span></b></td>
 											</tr>
 									</table>
 								</div>
@@ -73,9 +73,9 @@ client.onConnectionLost = function (responseObject) {
 		alert("connection lost: " + responseObject.errorMessage);
 };
 //console.log("Connection lost");
-
+function updateTime(){
 var currentdate = new Date();
-var datetime = "Recieved at " + currentdate.getDate() + "/"
+var datetime = currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
                 + currentdate.getFullYear() + " @ "
                 + currentdate.getHours() + ":"
@@ -88,9 +88,17 @@ client.onMessageArrived = function (message) {
 		//Do something with the push message you received
 		if (message.destinationName == 'ssshome/warning/' )
 		{
-		$('#warning').append(datetime + '<span>' + message.payloadString + '</span> <br>');
+			$('#time').empty().append(datetime + '<span>');
+			$('#warning').empty().append(message.payloadString + '</span>');
+			
 	}
 };
+}
+setInterval(updateTime);
+
+//setTimeout(function(){
+   //window.location.reload(1);
+//}, 20000);
 //console.log("It works 3");
 
 //Connect Options
