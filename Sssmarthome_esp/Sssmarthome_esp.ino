@@ -123,9 +123,11 @@ else if (s == "rtortoise") {
   humlow = 40;
   humhigh = 60;
 }
-else if (s == "custom") {
 
-Serial.println("Applying settings for custom animal");
+else if (s == "OFF") {
+Serial.println("Toggling automatic control OFF");
+digitalWrite(13, LOW);
+digitalWrite(12, LOW);
 }
 
 
@@ -146,6 +148,7 @@ void reconnect() {
       client.publish("ssshome/animal/", "I'm Connected");
       // ... and resubscribe
       client.subscribe("ssshome/animal/");
+      client.subscribe("ssshome/settings/toggleControl/");
 //      client.subscribe("ssshome/custom/HL");
 //      client.subscribe("ssshome/custom/HH");
 //      client.subscribe("ssshome/custom/TL");
@@ -204,21 +207,21 @@ void loop() {
     Serial.print("Humidity %: ");
     Serial.println(point1Msg);
     client.publish(mqttTopicHumChar, point1Msg);
-  }
-  
+
+    
  //-----Control for temperature ranges-----
 
     if (dht.readTemperature() < templow){ 
       digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage HIGH
       digitalWrite(12, HIGH);
-      //Serial.println("Temperature is too low - adjusting..");
+      Serial.println("Temperature is too low - adjusting..");
       client.publish("ssshome/warning/", "Temperature too low - adjusting.."); 
       delay(5000);
 }
     else if (dht.readTemperature() > temphigh){
       digitalWrite(12, LOW);
       digitalWrite(LED_BUILTIN, HIGH);
-      //Serial.println("Temperature is too high - adjusting..");
+      Serial.println("Temperature is too high - adjusting..");
       client.publish("ssshome/warning/", "Temperature too high - adjusting..");
       delay(5000);
   }
@@ -227,16 +230,23 @@ void loop() {
   
   if (dht.readHumidity() < humlow){ 
       digitalWrite(13, LOW);
-      //Serial.println("Humidity is too low - make it rain..");
+      Serial.println("Humidity is too low - please raise it..");
       client.publish("ssshome/warning/", "Humidity too low - please raise it");
       delay(5000);
 }
     else if (dht.readHumidity() > humhigh){
       digitalWrite(13, HIGH);
-      //Serial.println("Humidity is too high - adjusting..");
+      Serial.println("Humidity is too high - adjusting..");
       client.publish("ssshome/warning/", "Humidity too high - adjusting..");
       delay(5000);
   }
+  }
+
+  
+
+  
+  
+
 
   
 

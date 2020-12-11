@@ -32,23 +32,23 @@
 							<button onclick="autoControlON()" type = "submit" id = "buttonON">Turn the auto control ON</button>  
 							<button onclick="autoControlOFF()" type = "submit" id = "buttonOFF">Turn the auto control OFF</button>
 							<h4 id="autoToggle"></h4>
-						
+
 
 							<script>
 								function autoControlON() {
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned ON";
 									document.getElementById("autoToggle").style.color = "#80D513"
-									publish("ON", 'toggleControl',1)
+									publish("ON", 'toggleControl/',1)
 								}
 
 
 								function autoControlOFF() {
 									document.getElementById("autoToggle").innerHTML = "The automatic control is now turned OFF";
 									document.getElementById("autoToggle").style.color = "#E0003A"
-									publish("OFF", 'toggleControl',1)
+									publish("OFF", 'toggleControl/',1)
 								}
 
-							
+
 							</script>
 
 						<!--	<br><h4><b>Change range manually</b></h4>
