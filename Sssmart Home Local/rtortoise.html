@@ -12,9 +12,10 @@
 		<title>Russian Tortoise - Sssmart Home</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="css\main.css">
+		<link rel="stylesheet" href="css/main.css">
 	</head>
-	<body>
+	<body onload="init()">
+
 
 		<!-- Header -->
 			<header id="header">
@@ -37,7 +38,7 @@
 					</div>
 				</article>
 			</section>
-		
+
 
 			<section id="three" class="wrapper style2">
 				<div class="inner">
@@ -74,12 +75,6 @@
 
 //Create a new Client object with your broker's hostname, port and your own clientId
 var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "espclient123");
-var publish = function (payload, topic, qos) {
-				//Send your message (also possible to serialize it as JSON or protobuf or just use a string, no limitations)
-				var message = new Messaging.Message(payload);
-				message.destinationName = "ssshome/animal/" + topic;
-				message.qos = qos;
-				client.send(message);
 //console.log("It works");
 //Gets  called if the websocket/mqtt connection gets disconnected for any reason
 client.onConnectionLost = function (responseObject) {
@@ -87,11 +82,6 @@ client.onConnectionLost = function (responseObject) {
 alert("connection lost: " + responseObject.errorMessage);
 };
 //console.log("Connection lost");
-
-		
-
-
-
 
 //console.log("It works 2");
 //Gets called whenever you receive a message for your subscriptions
@@ -128,7 +118,6 @@ client.subscribe('ssshome/livedata/hum', {qos: 2}); console.log("Subscribed to h
 }
 setTimeout(subscribe, 3000);
 </script>
-
 
 </body>
 </html>
