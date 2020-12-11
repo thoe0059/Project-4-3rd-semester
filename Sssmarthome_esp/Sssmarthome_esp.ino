@@ -126,12 +126,15 @@ else if (s == "rtortoise") {
 
 else if (s == "OFF") {
 Serial.println("Toggling automatic control OFF");
-digitalWrite(13, LOW);
-digitalWrite(12, LOW);
+digitalWrite(16, LOW);
 }
 
+else if (s == "ON") {
+Serial.println("Toggling automatic control ON");
+digitalWrite(16, HIGH);
 
-  }
+}
+}
 
 
 void reconnect() {
@@ -168,11 +171,13 @@ void setup() {
    pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
    pinMode(12, OUTPUT); //Heating lamp
    pinMode(13, OUTPUT); //Fan
+   pinMode(16, OUTPUT);
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   dht.begin(); // Begin reading sensor data from DHT.
+  digitalWrite(16, HIGH);
 
 
 mqttTopicTemp = "ssshome/livedata/temp";
@@ -210,7 +215,7 @@ void loop() {
 
     
  //-----Control for temperature ranges-----
-
+  if(digitalRead(16) == HIGH){
     if (dht.readTemperature() < templow){ 
       digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage HIGH
       digitalWrite(12, HIGH);
@@ -240,14 +245,19 @@ void loop() {
       client.publish("ssshome/warning/", "Humidity too high - adjusting..");
       delay(5000);
   }
-  }
-
-  
-
-  
-  
-
-
-  
-
 }
+  if (digitalRead(16) == LOW){
+    ;
+  }
+ }
+
+ 
+}
+
+  
+
+  
+  
+
+
+  
