@@ -1,13 +1,6 @@
 <!DOCTYPE HTML>
 
 <html>
-	<style>
-      .img-shit {
-        text-align: center;
-        display: block;
-      }
-
-    </style>
 	<head>
 		<title>Sssmart Home</title>
 		<meta charset="utf-8"/>
@@ -38,7 +31,7 @@
 				</article>
 			</section>
 
-
+		<!-- Picture links -->
 			<section id="three" class="wrapper style2">
 				<div class="inner">
 					<header class="align-center">
@@ -74,38 +67,29 @@
 
 			//Create a new Client object with your broker's hostname, port and your own clientId
 var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "espclient123");
-//console.log("It works");
+
 //Gets  called if the websocket/mqtt connection gets disconnected for any reason
 client.onConnectionLost = function (responseObject) {
-		//Depending on your scenario you could implement a reconnect logic here
 		alert("connection lost: " + responseObject.errorMessage);
 };
-//console.log("Connection lost");
 
-//console.log("It works 2");
 //Gets called whenever you receive a message for your subscriptions
 client.onMessageArrived = function (message) {
-		//Do something with the push message you received
-		if (message.destinationName == 'ssshome/livedata/temp' )
-		{
-		$('#temp').empty().append('<span>' + message.payloadString + '</span>');
-	}
-	if (message.destinationName == 'ssshome/livedata/hum' )
-	{
-	$('#hum').empty().append('<span>' + message.payloadString + '</span>');
-}
+		if (message.destinationName == 'ssshome/livedata/temp' ) {
+			$('#temp').empty().append('<span>' + message.payloadString + '</span>');
+		}
+		if (message.destinationName == 'ssshome/livedata/hum' ) {
+			$('#hum').empty().append('<span>' + message.payloadString + '</span>');
+		}
 };
-//console.log("It works 3");
 
 //Connect Options
 var options = {
 		timeout: 3,
-		//Gets Called if the connection has sucessfully been established
-		//onSuccess: function () {
-		//alert("Connected");},
+		
 		//Gets Called if the connection could not be established
 		onFailure: function (message) {
-				alert("Connection failed: " + message.errorMessage);
+			alert("Connection failed: " + message.errorMessage);
 		}
 };
 
@@ -115,8 +99,7 @@ function subscribe () {
 	client.subscribe('ssshome/livedata/temp', {qos: 2}); console.log("Subscribed to temperature");
 	client.subscribe('ssshome/livedata/hum', {qos: 2}); console.log("Subscribed to humidity");
 }
-setTimeout(subscribe, 3000);
-	</script>
-
+			setTimeout(subscribe, 3000);
+		</script>
 	</body>
 </html>
